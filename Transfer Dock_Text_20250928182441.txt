@@ -1,0 +1,121 @@
+import os
+def create_file(filename):
+    with open(filename, "w") as f:
+        print(f"File '{filename}' created successfully.")
+
+def insert_data(filename, data):
+    with open(filename, "w") as f:
+        f.write(data)
+        print(f"Data inserted into '{filename}'.")
+
+def replace_content(filename, old, new):
+    try:
+        with open(filename, "r") as f:
+            content = f.read()
+        content = content.replace(old, new)
+        with open(filename, "w") as f:
+            f.write(content)
+        print(f"Replaced '{old}' with '{new}' in '{filename}'.")
+    except FileNotFoundError:
+        print("File not found.")
+
+def append_data(filename, data):
+    with open(filename, "a") as f:
+        f.write(data)
+        print(f"Data appended to '{filename}'.")
+
+def read_file(filename):
+    try:
+        with open(filename, "r") as f:
+            print("---- File Content ----")
+            print(f.read())
+            print("----------------------")
+    except FileNotFoundError:
+        print("File not found.")
+
+def rename_file(oldname, newname):
+    try:
+        os.rename(oldname, newname)
+        print(f"File renamed from '{oldname}' to '{newname}'.")
+    except FileNotFoundError:
+        print("File not found.")
+
+def delete_file(filename):
+    try:
+        os.remove(filename)
+        print(f"File '{filename}' deleted successfully.")
+    except FileNotFoundError:
+        print("File not found.")
+
+def working_dir():
+    print("Current Working Directory:", os.getcwd())
+
+def change_dir(path):
+    try:
+        os.chdir(path)
+        print("Directory changed to:", os.getcwd())
+    except FileNotFoundError:
+        print("Directory not found.")
+
+# Menu-driven program
+while True:
+    print("\n--- File Handling Menu ---")
+    print("1. Create File")
+    print("2. Insert Data (overwrite)")
+    print("3. Replace Content")
+    print("4. Append Data")
+    print("5. Read File")
+    print("6. Rename File")
+    print("7. Delete File")
+    print("8. Show Working Directory")
+    print("9. Change Directory")
+    print("10. Exit")
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        fname = input("Enter filename: ")
+        create_file(fname)
+
+    elif choice == "2":
+        fname = input("Enter filename: ")
+        data = input("Enter data to insert: ")
+        insert_data(fname, data)
+
+    elif choice == "3":
+        fname = input("Enter filename: ")
+        old = input("Enter word to replace: ")
+        new = input("Enter new word: ")
+        replace_content(fname, old, new)
+
+    elif choice == "4":
+        fname = input("Enter filename: ")
+        data = input("Enter data to append: ")
+        append_data(fname, data)
+
+    elif choice == "5":
+        fname = input("Enter filename: ")
+        read_file(fname)
+
+    elif choice == "6":
+        old = input("Enter old filename: ")
+        new = input("Enter new filename: ")
+        rename_file(old, new)
+
+    elif choice == "7":
+        fname = input("Enter filename to delete: ")
+        delete_file(fname)
+
+    elif choice == "8":
+        working_dir()
+
+    elif choice == "9":
+        path = input("Enter directory path: ")
+        change_dir(path)
+
+    elif choice == "10":
+        print("Exiting program...")
+        break
+
+    else:
+        print("Invalid choice! Please try again.")
